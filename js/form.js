@@ -1,47 +1,42 @@
 /* ========================================
-   CONTACT FORM HANDLING
+   EMAILJS CONTACT FORM
    ======================================== */
 
 (function () {
     'use strict';
 
+    // ★ 여기에 본인 키를 넣으세요
+    var PUBLIC_KEY  = '0iQbNZd1KaHxvBQm2';
+    var SERVICE_ID  = 'service_zckm4cy';
+    var TEMPLATE_ID = 'template_jv2acna';
+
+    emailjs.init(PUBLIC_KEY);
+
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('.contact__form');
+        var form = document.getElementById('contact-form');
         if (!form) return;
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const submitBtn = form.querySelector('.contact__submit');
-            const originalText = submitBtn.textContent;
+            var submitBtn = form.querySelector('.contact__submit');
+            var originalText = submitBtn.textContent;
 
-            // Loading state
             submitBtn.textContent = '보내는 중...';
             submitBtn.disabled = true;
 
-            // Send via Formspree
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: {
-                    Accept: 'application/json',
-                },
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        submitBtn.textContent = '문의가 전송되었습니다!';
-                        form.reset();
-                        setTimeout(() => {
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                        }, 3000);
-                    } else {
-                        throw new Error('전송 실패');
-                    }
+            emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form)
+                .then(function () {
+                    submitBtn.textContent = '문의가 전송되었습니다!';
+                    form.reset();
+                    setTimeout(function () {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
                 })
-                .catch(() => {
+                .catch(function () {
                     submitBtn.textContent = '전송 실패 — 이메일로 문의해주세요';
-                    setTimeout(() => {
+                    setTimeout(function () {
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
                     }, 3000);
