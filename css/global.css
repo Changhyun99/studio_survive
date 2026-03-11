@@ -1,0 +1,60 @@
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-base);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+/* Section Common */
+.section-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+}
+
+.section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-white);
+    margin-bottom: var(--space-xl);
+}
+
+/* Accent */
+.hero__accent {
+    color: var(--color-accent);
+}
+
+/* Animate on scroll */
+[data-animate] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+[data-animate].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Selection */
+::selection {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: var(--font-size-xl);
+    }
+}
